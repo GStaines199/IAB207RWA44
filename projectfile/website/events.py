@@ -3,6 +3,7 @@ from .forms import EventForm, CommentForm
 from .models import Event, Comment
 from . import db
 from werkzeug.utils import secure_filename
+from flask_login import current_user
 import os
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
