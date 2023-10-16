@@ -29,8 +29,10 @@ def create_app():
     #add Blueprints
     from . import views
     app.register_blueprint(views.bp)
-    # from . import auth
-    # app.register_blueprint(auth.authbp)
+    from . import events
+    app.register_blueprint(events.eventbp)
+    from . import auth
+    app.register_blueprint(auth.authbp)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

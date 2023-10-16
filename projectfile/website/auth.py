@@ -7,7 +7,26 @@ from .models import User
 from . import db
 
 #create a blueprint
-bp = Blueprint('auth', __name__)
+authbp = Blueprint('auth', __name__)
+
+
+#not dont yet feel free to change it or delete it 
+@authbp.route('/login', methods=['GET', 'POST'])
+def login():
+    loginForm = LoginForm()
+    if loginForm.validate_on_submit():
+        print("Logged in!")
+        flash("You logged in!")
+        return redirect(url_for('auth.login'))
+    return render_template('user.html', form=loginForm, heading='Login')
+
+@authbp.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        print("Registerd!")
+        return redirect(url_for('auth.login'))
+    return render_template('user.html', form=form)
 
 # this is a hint for a login function
 # @bp.route('/login', methods=['GET', 'POST'])
