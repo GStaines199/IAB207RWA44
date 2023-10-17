@@ -19,11 +19,11 @@ def create_app():
     app.secret_key = 'somerandomvalue'
 
     #Configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Eventsdb.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Epicureandb.sqlite'
     db.init_app(app)
 
     #config upload folder
-    UPLOAD_FOLDER = '/static/image'
+    UPLOAD_FOLDER = '/static/img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     
     #add Blueprints
