@@ -1,0 +1,23 @@
+.formdiv{
+    margin-left: 20% !important;
+}
+
+label {
+    font-weight: bold !important;
+}
+input[type=text], input[type=password], input[type=email], input[type=file], textarea, input[type=number] {
+    width: 60% !important;
+}
+
+input[type=submit]{
+    padding: 5px 30px !important;
+}
+
+input[type=submit]:hover {
+    background-color: #2615be !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.page-header {
+    text-align: center !important;
+
+}
