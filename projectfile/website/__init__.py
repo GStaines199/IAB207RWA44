@@ -19,18 +19,20 @@ def create_app():
     app.secret_key = 'somerandomvalue'
 
     #Configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///traveldb.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Epicureandb.sqlite'
     db.init_app(app)
 
     #config upload folder
-    UPLOAD_FOLDER = '/static/image'
+    UPLOAD_FOLDER = '/static/img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     
     #add Blueprints
     from . import views
     app.register_blueprint(views.bp)
-    # from . import auth
-    # app.register_blueprint(auth.authbp)
+    from . import events
+    app.register_blueprint(events.eventbp)
+    from . import auth
+    app.register_blueprint(auth.authbp)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

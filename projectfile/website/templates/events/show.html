@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-5 py-5">
+    <div class="row">
+        <h1>{{event.name}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <img src='{{event.image}}' class=img-fluid>
+        </div>
+        <div class="col">
+            <div class="row">
+                <small>TICKET PRICE</small>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h1>{{event.price}}</h1>
+                </div>
+                <div class="col-1">
+                    <div class="row my-1">
+                        <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button" onclick="window.location.href='index.html'">Purchase</button>
+                    </div>
+                    <div class="row my-1">
+                        <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button" onclick="window.location.href='bookmarks.html'">Favourite</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <small><strong>Listed by: Anonymous</strong></small>
+            </div>
+            <div class="row">
+                <p>
+                    {{event.description}}
+                </p>
+            </div>
+            <div class="row">
+                <div class="container-fluid px-5 py-5">
+                    <div class="row">
+                        <h3>Details</h3>
+                    </div>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Dietary Catering</th>
+                                    <td>All</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Cultural Themes</th>
+                                    <td>Mexican - Latin</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Skill Level</th>
+                                    <td>Family Friendly</td>
+                                </tr>
+                            </tbody>                
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-1">
+        <h1>Comments</h1>
+    </div>
+    <div class="row py-1">
+        <div class="col-1">
+            <img src="https://via.placeholder.com/100" class=img-fluid>
+        </div>
+        <div class="col">
+            <div class="row py-1">
+                <input class="form-control" id="enterComment" placeholder="Write a comment...">
+            </div>
+            <div class="row py-1">
+                <button class="btn btn-primary text-nowrap mx-2" type="button">Post</button>
+            </div>
+        </div>
+    </div>
+    {% for comment in event.comments %}
+    <div class="row py-1">
+        <div class="col-1">
+            <img src="https://via.placeholder.com/100" class=img-fluid>
+        </div>
+        <div class="col">
+            <div class="row">
+                <strong>Posted By: {{comment.user}} - {{comment.date}}</strong>
+            </div>
+            <div class="row">
+                {{comment.text}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
