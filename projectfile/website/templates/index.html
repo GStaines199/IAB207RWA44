@@ -57,7 +57,16 @@
         </div>
         <div class="col-8">
             <h1>{{event.name}}</h1>
-            <p>Status: Sold Out</p>
+            <div class="row">
+                <div class="col-2">
+                    <p>Status: {{event.status}}</p>
+                    <p>Location: {{event.location}}</p>
+                </div>
+                <div class="col-3">
+                    <p>Start: {{event.startdate}}</p>
+                    <p>End: {{event.enddate}}</p>
+                </div>
+            </div>
             <p>
                 {{event.description}}
             </p>
@@ -67,7 +76,7 @@
                 <p><small>TICKET PRICE</small></p>
             </div>
             <div class="row justify-content-center my-1">
-                <h2>${{event.currency}}</h2>
+                <h2>${{event.ticketPrice}}</h2>
             </div>
             <div class="row justify-content-center my-1">
                 <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button"

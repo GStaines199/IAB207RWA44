@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .forms import EventForm, CommentForm
 from .models import Event, Comment
+from datetime import datetime
 from . import db
 from werkzeug.utils import secure_filename
 from flask_login import current_user
@@ -21,17 +22,23 @@ def create():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
+
+    current_dateTime = datetime.now()
+    startdate = datetime.strptime(form.startdate.data, '%Y-%m-%dT%H:%M')
+    enddate = datetime.strptime(form.enddate.data, '%Y-%m-%dT%H:%M')
+
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
+    
     event = Event(name=form.name.data,description=form.description.data, 
-    image=db_file_path,ticketPrice=form.price.data)
+    image=db_file_path,ticketPrice=form.price.data, startdate=startdate, enddate=enddate, status=form.status.data, location=form.location.data , user=current_user.name)
     # add the object to the db session
     db.session.add(event)
     # commit to the database
     db.session.commit()
     flash('Successfully created new event', 'success')
     #Always end with redirect when form is valid
-    return redirect(url_for('event.create'))
+    return redirect(url_for('main.index'))
   return render_template('events/create.html', form=form)
 
 def check_upload_file(form):

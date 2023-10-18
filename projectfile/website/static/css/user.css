@@ -5,7 +5,7 @@
 label {
     font-weight: bold !important;
 }
-input[type=text], input[type=password], input[type=email], input[type=file], textarea, input[type=number] {
+input[type=text], input[type=password], input[type=email], input[type=file], textarea, input[type=number], input[type=datetime], input[type=select], .form-select, .form-control{
     width: 60% !important;
 }
 

@@ -1,5 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField, IntegerField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField, IntegerField, SelectField, DateTimeField
+from wtforms import widgets
+from dateutil.relativedelta import *
+from dateutil.easter import *
+from dateutil.rrule import *
+from dateutil.parser import *
+from datetime import *
 from wtforms.validators import InputRequired, Email, EqualTo, Length
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -25,13 +31,17 @@ class RegisterForm(FlaskForm):
 
 #create event
 class EventForm(FlaskForm):
-    name = StringField('EventName', validators=[InputRequired()])
+    name = StringField('Event Name', validators=[InputRequired()])
     description = TextAreaField('Description', validators=[InputRequired()])
     image = FileField('Event Image', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])   
     price = IntegerField('Price ($)',  validators=[InputRequired()])
-    submit = SubmitField("Create")
+    startdate = StringField('Start Date & Time', validators=[InputRequired()], widget=widgets.Input(input_type='datetime-local'))
+    enddate = StringField('End Date & Time', validators=[InputRequired()],widget=widgets.Input(input_type='datetime-local'))
+    location = StringField('Location', validators=[InputRequired()])
+    status = SelectField('Status', validators=[InputRequired()], choices=[('Active', 'Active'), ('Limited', 'Limited'), ('SoldOut', 'Sold Out'), ('Canceled', 'Canceled')])
+    submit = SubmitField("Post Event")
 
     
 class CommentForm(FlaskForm):
