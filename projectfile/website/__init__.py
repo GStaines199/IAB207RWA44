@@ -23,7 +23,7 @@ def create_app():
     db.init_app(app)
 
     #config upload folder
-    UPLOAD_FOLDER = '/static/img'
+    UPLOAD_FOLDER = 'static\img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     
     #add Blueprints
