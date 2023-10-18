@@ -5,17 +5,20 @@
 {% block content %}
 
 <div class="container-fluid">
-<div class="page-header">
-    <h4>{{heading}}</h4>
-</div>
+  <div class="row justify-content-center">
+      <div class="page-header">
+        <h4>{{heading}}</h4>
+    </div>
+    </div>
+
 
 {% with messages = get_flashed_messages() %}
 {% if messages %} <!-- check if there are any messages -->
   <div class="container-fluid">
-    <div class="row mt-3 mb-3">
+    <div class="row mt-3 mb-3 ">
       <div class="col-md-12">
       {% for message in messages %} <!--loop through the messages-->
-        <div class="alert alert-info">{{ messagem}}</div> <!--display as alert-->
+        <div class="alert alert-info">{{ message }}</div> <!--display as alert-->
       {% endfor %}
     </div>
   </div>
@@ -26,16 +29,22 @@
 <!-- Form rendering is simple and easy if using WTForms -->
 <!-- If you want more granular control, declare the form manually: -->
 <!-- <form action="/route" method="post"> -->
-<div class="col-md-6">
+<div class="row justify-content-center">
+  <div class="formdiv col-md-6 ms-5 ">
     {{ render_form(form) }}
+    {% if heading|lower =='login' %}
+    <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
+    {% else %}
+    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Click here to login</a>.</p>
+    {% endif %}
+</div>
 </div>
 
+
 <!-- When you have login form, then show the user a link to register -->
-{% if heading|lower =='login' %}
-<div class="col-md-4">
-    <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
-</div>
-{% endif %}
+
+
+
 </div>
 {% endblock %}
 
