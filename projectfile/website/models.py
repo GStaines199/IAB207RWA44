@@ -17,11 +17,11 @@ class User(db.Model, UserMixin):
 
 class Event(db.Model):
     __tablename__ = 'events'
-    id = db.Column(db.Integer, primary_key=True)
+    eventid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
-    currency = db.Column(db.String(3))
+    ticketPrice = db.Column(db.String(3))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='event')
