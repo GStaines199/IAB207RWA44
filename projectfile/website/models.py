@@ -34,4 +34,4 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     # add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.eventid'), nullable=False)
