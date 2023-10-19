@@ -7,11 +7,11 @@
 {% block content %}
 <div class="container-fluid px-5 py-5">
     <div class="row">
-        <h1>{{event.name}}</h1>
+        <h1>{{Event.name}}</h1>
     </div>
     <div class="row">
         <div class="col-3">
-            <img src='{{event.image}}' class=img-fluid>
+            <img src="../../{{ Event.image }}" class="img-fluid">
         </div>
         <div class="col">
             <div class="row">
@@ -19,7 +19,7 @@
             </div>
             <div class="row">
                 <div class="col-2">
-                    <h1>{{event.price}}</h1>
+                    <h1>${{Event.ticketPrice}}</h1>
                 </div>
                 <div class="col-1">
                     <div class="row my-1">
@@ -35,7 +35,7 @@
             </div>
             <div class="row">
                 <p>
-                    {{event.description}}
+                    {{Event.description}}
                 </p>
             </div>
             <div class="row">
@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    {% for comment in event.comments %}
+    {% for comment in Event.comments %}
     <div class="row py-1">
         <div class="col-1">
             <img src="https://via.placeholder.com/100" class=img-fluid>

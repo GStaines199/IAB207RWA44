@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 
@@ -50,21 +50,25 @@
     </div>
 
 
-    
+    {% for event in events %}
     <div class="row px-5 py-1">
         <div class="col-2">
-            <img src="static\img\cinco-de-mayo_event.jpg" class=img-fluid>
+            <img src="{{ event.image }}" class="img-fluid">
         </div>
         <div class="col-8">
-            <h1>Cinco De Mayo Fiesta</h1>
-            <p>Status: Sold Out</p>
+            <h1>{{event.name}}</h1>
+            <div class="row">
+                <div class="col-2">
+                    <p>Status: {{event.status}}</p>
+                    <p>Location: {{event.location}}</p>
+                </div>
+                <div class="col-3">
+                    <p>Start: {{event.startdate}}</p>
+                    <p>End: {{event.enddate}}</p>
+                </div>
+            </div>
             <p>
-                Get ready for a day filled with colourful festivities and mouth-watering Mexican cuisine. As you
-                step into our lively venue adorned with papel picado and maracas, you'll feel instantly transported
-                to the heart of Mexico. Our event promises an unforgettable culinary journey, from spicy Tacos al
-                Pastor to smooth flan. A mariachi band will serenade you as you sip on our signature margaritas and
-                partake in traditional games like Lotería. Don't forget to check out our salsa-making workshop to
-                add a little extra kick to your Cinco De Mayo celebration.
+                {{event.description}}
             </p>
         </div>
         <div class="col-2 justify-content-center">
@@ -72,43 +76,10 @@
                 <p><small>TICKET PRICE</small></p>
             </div>
             <div class="row justify-content-center my-1">
-                <h2>$35.00</h2>
+                <h2>${{event.ticketPrice}}</h2>
             </div>
             <div class="row justify-content-center my-1">
-                <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='viewitem.html'">View</button>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='bookmarks.html'">Favourite</button>
-            </div>
-        </div>
-    </div>
-    <div class="row px-5 py-1">
-        <div class="col-2">
-            <img src="static\img\oktoberfest_event.jpg" class=img-fluid>
-        </div>
-        <div class="col-8">
-            <h1>Oktoberfest</h1>
-            <p>Status: Open</p>
-            <p>
-                Merge the joyful atmosphere of a traditional German Octoberfest with the spookiness of Halloween in
-                our one-of-a-kind event. Imagine wooden tables filled with bratwurst, pretzels, and, of course, kegs
-                of the best German beers, all set against a backdrop of carved pumpkins and eerie cobwebs. Dance to
-                polka music performed by a live band donning zombie makeup, and participate in our "Best Dressed
-                Monster" contest. It's the perfect fusion of autumnal festivity and haunted fun, guaranteeing a
-                night you'll never forget. </p>
-        </div>
-        <div class="col-2 justify-content-center">
-            <div class="row justify-content-center my-1">
-                <p><small>TICKET PRICE</small></p>
-            </div>
-            <div class="row justify-content-center my-1">
-                <h2>$29.99</h2>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='viewitem.html'">View</button>
+                <a class="btn btn-primary" href="{{ url_for('event.show', id=event.eventid) }}" role="button">View</a>
             </div>
             <div class="row justify-content-center my-1">
                 <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button"
@@ -116,69 +87,8 @@
             </div>
         </div>
     </div>
-    <div class="row px-5 py-1">
-        <div class="col-2">
-            <img src="static\img\underwater_event.jpg" class=img-fluid>
-        </div>
-        <div class="col-8">
-            <h1>Underwater Dining Experience</h1>
-            <p>Status: Sold Out</p>
-            <p>
-                Dive into an evening like no other as you dine in a submerged restaurant overlooking a vibrant coral
-                reef. Offering a multi-course tasting menu featuring sustainable seafood delicacies like oysters,
-                caviar, and seaweed salad, our event merges conservation education with high-end gastronomy. A
-                marine biologist will guide you through the underwater wonders visible from your table, as you dine
-                to the soothing sounds of the ocean. It's a surreal, once-in-a-lifetime event that promises to
-                titillate all your senses. </p>
-        </div>
-        <div class="col-2 justify-content-center">
-            <div class="row justify-content-center my-1">
-                <p><small>TICKET PRICE</small></p>
-            </div>
-            <div class="row justify-content-center my-1">
-                <h2>$250.00</h2>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='viewitem.html'">View</button>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='bookmarks.html'">Favourite</button>
-            </div>
-        </div>
-    </div>
-    <div class="row px-5 py-1">
-        <div class="col-2">
-            <img src="static\img\gnocchi_workshop.jpg" class=img-fluid>
-        </div>
-        <div class="col-8">
-            <h1>Gnocchi Culinary Workshop</h1>
-            <p>Status: Cancelled</p>
-            <p>
-                Unleash your inner Italian chef in this hands-on gnocchi-making class. Starting from scratch, you'll
-                learn how to prepare the perfect potato gnocchi under the guidance of Chef Alessandra, a gnocchi
-                expert hailing straight from Naples. All ingredients are fresh and locally sourced, guaranteeing the
-                most authentic experience. The workshop will also include a brief history of this Italian staple and
-                a tasting session where you can relish your culinary creation drizzled with homemade sauces. </p>
-        </div>
-        <div class="col-2 justify-content-center">
-            <div class="row justify-content-center my-1">
-                <p><small>TICKET PRICE</small></p>
-            </div>
-            <div class="row justify-content-center my-1">
-                <h2>$40.00</h2>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='viewitem.html'">View</button>
-            </div>
-            <div class="row justify-content-center my-1">
-                <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='bookmarks.html'">Favourite</button>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
+
 </div>
 {% endblock %}
 
