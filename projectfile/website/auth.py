@@ -67,4 +67,7 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-#@authbp.route('/account')
+@authbp.route('/account')
+@login_required
+def account():
+    return render_template('account.html', heading='Account')
