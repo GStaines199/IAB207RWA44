@@ -22,6 +22,8 @@ class RegisterForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired()], render_kw={"placeholder": "Enter user name"})
     email_id = StringField("Email Address", validators=[Email("Please enter a valid email")], render_kw={"placeholder": "Enter email address"})
     #linking two fields - password should be equal to data entered in confirm
+    Phone_Number = StringField("Phone Number", validators=[InputRequired()], render_kw={"placeholder": "Enter phone number"})
+    Address = StringField("Address", validators=[InputRequired()], render_kw={"placeholder": "Enter address"})
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")], render_kw={"placeholder": "Enter password"})
     confirm = PasswordField("Confirm Password", validators=[InputRequired()], render_kw={"placeholder": "Re-enter password"})

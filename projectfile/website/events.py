@@ -4,7 +4,7 @@ from .models import Event, Comment
 from datetime import datetime
 from . import db
 from werkzeug.utils import secure_filename
-from flask_login import current_user
+from flask_login import current_user, login_required
 import os
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
@@ -17,7 +17,7 @@ def show(id):
     return render_template('events/show.html', Event=event, form=form)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def create():
   print('Method type: ', request.method)
   form = EventForm()
