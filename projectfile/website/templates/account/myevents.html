@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/account.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="row" id="body-row">
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+        <ul class="list-group">
+            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+               <h5>{{ current_user.name}}</h5>
+            </li>
+            <a href="/account/myevents" class="bg-light list-group-item list-group-item-action menu-item active">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-tasks fa-fw mr-3"></span>
+                    <span class="menu-collapsed">My Events</span>
+                </div>
+            </a>
+            <a href="/account/tickets" class="bg-light list-group-item list-group-item-action menu-item">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-ticket fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Tickets</span>
+                </div>
+            </a>
+            <a href="/account/favourites" class="bg-light list-group-item list-group-item-action menu-item">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-star fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Favourites</span>
+                </div>
+            </a>
+            <a href="/account/profile" class="bg-light list-group-item list-group-item-action menu-item">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Profile</span>
+                </div>
+            </a>
+    </div> 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="row">
+            <h2>My Events</h2>
+        </div>
+        {% for userevents in UserEvent %}
+        <div class="row px-5 py-1">
+            <div class="col-2">
+                <img src="../../{{ userevents.image }}" class="img-fluid">
+            </div>
+
+            <div class="col-8">
+                <h1>{{userevents.name}}</h1>
+                <div class="row">
+                    <div class="col-2">
+                        <p>Status: {{userevents.status}}</p>
+                        <p>Location: {{userevents.location}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Start: {{userevents.startdate}}</p>
+                        <p>End: {{userevents.enddate}}</p>
+                    </div>
+                </div>
+                <p>
+                    {{userevents.description}}
+                </p>
+            </div>
+            <div class="col-2 justify-content-center">
+                <div class="row justify-content-center my-1">
+                    <p><small>TICKET PRICE</small></p>
+                </div>
+                <div class="row justify-content-center my-1">
+                    <h2>${{userevents.ticketPrice}}</h2>
+                </div>
+                <i class="fa-solid fa-pen-to-square icon"></i>
+
+            </div>
+        </div>
+        {% endfor %}
+      </main>
+
+{% endblock %}
