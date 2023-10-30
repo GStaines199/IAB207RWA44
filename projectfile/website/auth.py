@@ -68,3 +68,6 @@ def logout():
 
 
 @authbp.route('/account')
+@login_required
+def account():
+    return render_template('account.html', heading='Account')
