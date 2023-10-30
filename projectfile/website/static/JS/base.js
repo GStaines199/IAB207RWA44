@@ -1,3 +1,4 @@
+
 const icons = document.querySelectorAll('.icon');
 
   icons.forEach((icon) => {
@@ -11,3 +12,13 @@ const icons = document.querySelectorAll('.icon');
       icon.classList.remove('fa-regular');
     });
   });
+
+  $(document).ready(function() {
+    setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 2000);
+  });       
+  
+
+
+  

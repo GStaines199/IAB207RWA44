@@ -12,9 +12,10 @@ eventbp = Blueprint('event', __name__, url_prefix='/events')
 @eventbp.route('/<id>')
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.eventid==id))
+    valid = Event.status
     # create the comment form
     form = CommentForm()    
-    return render_template('events/show.html', Event=event, form=form)
+    return render_template('events/show.html', Event=event, form=form, valid=valid)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -36,7 +37,6 @@ def create():
     db.session.add(event)
     # commit to the database
     db.session.commit()
-    flash('Successfully created new event', 'success')
     #Always end with redirect when form is valid
     return redirect(url_for('main.index'))
   return render_template('events/create.html', form=form)
