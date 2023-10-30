@@ -36,7 +36,6 @@ def create():
     db.session.add(event)
     # commit to the database
     db.session.commit()
-    flash('Successfully created new event', 'success')
     #Always end with redirect when form is valid
     return redirect(url_for('main.index'))
   return render_template('events/create.html', form=form)
