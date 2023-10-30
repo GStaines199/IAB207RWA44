@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from .forms import LoginForm, RegisterForm
 #new imports:
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from flask_bcrypt import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, Event
 from . import db
 
 #create a blueprint
@@ -67,7 +67,25 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@authbp.route('/account')
+@authbp.route('/account/profile')
 @login_required
 def account():
-    return render_template('account.html', heading='Account')
+    
+    return render_template('account/profile.html', heading='Account')
+
+@authbp.route('/account/myevents')
+@login_required
+def myevents():
+    user = current_user.name
+    userevents = Event.query.filter_by(user=user).all()
+    return render_template('account/myevents.html', UserEvent=userevents, heading='MyEvents')
+
+@authbp.route('/account/tickets')
+@login_required
+def tickets():
+    return render_template('account/tickets.html', heading='Tickets')
+
+@authbp.route('/account/favourites')
+@login_required
+def favourites():
+    return render_template('account/favourites.html', heading='Favourites')
