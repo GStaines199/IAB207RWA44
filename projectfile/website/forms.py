@@ -42,7 +42,7 @@ class EventForm(FlaskForm):
     startdate = StringField('Start Date & Time', validators=[InputRequired()], widget=widgets.Input(input_type='datetime-local'))
     enddate = StringField('End Date & Time', validators=[InputRequired()],widget=widgets.Input(input_type='datetime-local'))
     location = StringField('Location', validators=[InputRequired()])
-    status = SelectField('Status', validators=[InputRequired()], choices=[('Active', 'Active'), ('Limited', 'Limited'), ('SoldOut', 'Sold Out'), ('Canceled', 'Canceled')])
+    status = SelectField('Status', validators=[InputRequired()], choices=[('Active', 'Active'), ('Limited', 'Limited'), ('Sold Out', 'Sold Out'), ('Canceled', 'Canceled')])
     submit = SubmitField("Post Event")
 
     
