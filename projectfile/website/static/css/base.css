@@ -14,4 +14,15 @@ body {
     display: flex;
     flex-direction: column;
 }
- 
+
+.Favdiv{
+    width: 161.200px;
+}
+
+.favform{
+    width: 161.200px;
+}
+
+.favbutton{
+    width: 161.200px;
+}

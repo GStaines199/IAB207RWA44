@@ -79,11 +79,11 @@
                 <h2>${{event.ticketPrice}}</h2>
             </div>
             <div class="row justify-content-center my-1">
-                <a class="btn btn-primary" href="{{ url_for('event.show', id=event.eventid) }}" role="button">View</a>
+                <a class="btn btn-primary btn-block" href="{{ url_for('event.show', id=event.eventid) }}" role="button">View</a>
             </div>
-            <div class="row justify-content-center my-1">
-                <form method="POST" action="{{ url_for('auth.toggle_favorite', id=event.eventid) }}">
-                        <button type="submit" class="btn btn-success text-nowrap mx-2 btn-block" role="button">Favorited</button>
+            <div class="row justify-content-center my-1 Favdiv">
+                <form method="POST" class="favform justify-content-center" action="{{ url_for('auth.toggle_favorite', id=event.eventid) }}">
+                    <button type="submit" class="btn btn-success text-nowrap mx-2 btn-block favbutton" role="button">Favourite</button>
                 </form>
             </div>
         </div>
