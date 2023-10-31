@@ -48,6 +48,18 @@ class EventForm(FlaskForm):
     status = SelectField('Status', validators=[InputRequired()], choices=[('Active', 'Active'), ('Limited', 'Limited'), ('Sold Out', 'Sold Out'), ('Canceled', 'Canceled')])
     submit = SubmitField("Post Event")
 
+class EventUpdateForm(FlaskForm):
+    name = StringField('Event Name', validators=[InputRequired()])
+    description = TextAreaField('Description', validators=[InputRequired()])
+    image = FileField('Event Image', validators=[
+        FileRequired(message='Image cannot be empty'),
+        FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])   
+    price = IntegerField('Price ($)',  validators=[InputRequired()])
+    startdate = StringField('Start Date & Time', validators=[InputRequired()], widget=widgets.Input(input_type='datetime-local'))
+    enddate = StringField('End Date & Time', validators=[InputRequired()],widget=widgets.Input(input_type='datetime-local'))
+    location = StringField('Location', validators=[InputRequired()])
+    status = SelectField('Status', validators=[InputRequired()], choices=[('Active', 'Active'), ('Limited', 'Limited'), ('Sold Out', 'Sold Out'), ('Canceled', 'Canceled')])
+    submit = SubmitField("Update Event")
     
 class CommentForm(FlaskForm):
     text = TextAreaField('Text', validators=[InputRequired()])

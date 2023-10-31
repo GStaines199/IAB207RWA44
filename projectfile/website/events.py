@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, EventUpdateForm
 from .models import Event, Comment
 from datetime import datetime
 from . import db
@@ -42,6 +42,33 @@ def create():
     return redirect(url_for('main.index'))
   return render_template('events/create.html', form=form)
 
+@login_required
+@eventbp.route('/update/<id>', methods=['GET', 'POST'])
+def update_event(id):
+  # Get the event
+  event = db.session.query(Event).get(id)
+  form = EventUpdateForm(obj=event)
+
+  if form.validate_on_submit():
+    startdate = datetime.strptime(form.startdate.data, '%Y-%m-%dT%H:%M')
+    enddate = datetime.strptime(form.enddate.data, '%Y-%m-%dT%H:%M')
+
+    db_file_path = check_upload_file(form)
+    
+    event.name = form.name.data
+    event.description = form.description.data
+    event.image = db_file_path
+    event.ticketPrice = form.price.data
+    event.startdate = startdate
+    event.enddate = enddate
+    event.status = form.status.data
+    event.location = form.location.data
+    event.user = current_user.name
+
+    # Commit the changes to the database
+    event.session.commit()
+
+  return render_template('events/update.html', form=form)
 def check_upload_file(form):
   #get file data from form  
   fp = form.image.data
