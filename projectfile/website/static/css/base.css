@@ -8,6 +8,8 @@ html {
     height: 100%;
 }
 
+
+
 body {
     min-height: 100%;
 
@@ -15,4 +17,12 @@ body {
     flex-direction: column;
 }
 
+img.img-fluid {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;    
 
+}
+
+p.date, p.status{
+    color: #4a8ee7;
+}

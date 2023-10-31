@@ -39,6 +39,9 @@ class EventForm(FlaskForm):
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])   
     price = IntegerField('Price ($)',  validators=[InputRequired()])
+    theme = StringField('Event Theme', validators=[InputRequired()])
+    Dietry = StringField('Dietry', validators=[InputRequired()])
+    SkillLevel = SelectField('Skill Level', validators=[InputRequired()], choices=[('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Expert', 'Expert'), ('Foody', 'Foody'), ('Chef', 'Chef'), ('Family Friendly', 'Family Friendly')])
     startdate = StringField('Start Date & Time', validators=[InputRequired()], widget=widgets.Input(input_type='datetime-local'))
     enddate = StringField('End Date & Time', validators=[InputRequired()],widget=widgets.Input(input_type='datetime-local'))
     location = StringField('Location', validators=[InputRequired()])

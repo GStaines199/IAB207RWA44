@@ -28,6 +28,9 @@ class Event(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     startdate = db.Column(db.DateTime)
     enddate = db.Column(db.DateTime)
+    Dietary = db.Column(db.String(80))
+    Theme = db.Column(db.String(80))
+    SkillLevel = db.Column(db.String(80))
     location = db.Column(db.String(100))
     user = db.Column(db.String(80))
     # ... Create the Comments db.relationship
