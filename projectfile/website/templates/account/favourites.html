@@ -5,41 +5,48 @@
 
 {% block content %}
 
-<div class="row" id="body-row">
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <ul class="list-group">
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-               <h5>{{ current_user.name}}</h5>
-            </li>
-            <a href="/account/myevents" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-tasks fa-fw mr-3"></span>
-                    <span class="menu-collapsed">My Events</span>
-                </div>
-            </a>
-            <a href="/account/tickets" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-ticket fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Tickets</span>
-                </div>
-            </a>
-            <a href="/account/favourites" class="bg-light list-group-item list-group-item-action menu-item active">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-star fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Favourites</span>
-                </div>
-            </a>
-            <a href="/account/profile" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Profile</span>
-                </div>
-            </a>
-    </div> 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
             <h2>Favourites</h2>
         </div>
+        {% for favorite_events in favorite_events %}
+            <div class="row py-1 event_bar">
+                <div class="col-2">
+                    <img src="../../{{ favorite_events.image }}" class="img-fluid">
+                </div>
+                <div class="col-8">
+                    <h1>{{favorite_events.name}}</h1>
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="font-weight-bold date">{{ favorite_events.startdate.strftime('%a, %d %b, %I:%M%p') }} - {{favorite_events.enddate.strftime('%a, %d %b, %I:%M%p')}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="font-weight-bold status">Status: {{favorite_events.status}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-weight-bold">{{favorite_events.location}}</p>
+                        <p>{{favorite_events.description}}</p>
+                    </div>
+                </div>
+                <div class="col-2 justify-content-center">
+                    <div class="row justify-content-center my-1">
+                        <p><small>TICKET PRICE</small></p>
+                    </div>
+                    <div class="row justify-content-center my-1">
+                        <h2>${{favorite_events.ticketPrice}}</h2>
+                    </div>
+                    <div class="row justify-content-center my-1">
+                        <a class="btn btn-primary btn-block" href="{{ url_for('event.show', id=favorite_events.eventid) }}" role="button">View</a>
+                    </div>
+                    <div class="row justify-content-center my-1 Favdiv">
+                        <form method="POST" class="favform justify-content-center" action="{{ url_for('auth.toggle_favorite', id=favorite_events.eventid) }}">
+                            <button type="submit" class="btn btn-success text-nowrap mx-2 btn-block favbutton" role="button">Favourite</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
       </main>
 
 {% endblock %}

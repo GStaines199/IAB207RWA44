@@ -4,102 +4,74 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="row" id="body-row">
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <ul class="list-group">
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-               <h5>{{ current_user.name}}</h5>
-            </li>
-            <a href="/account/myevents" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-tasks fa-fw mr-3"></span>
-                    <span class="menu-collapsed">My Events</span>
+    <main role="main" class="px-4 container-fluid mt-3">
+        <div class="row ms-auto justify-content-center">
+            <div class="page-header">
+                <h4>Profile</h4>
+            </div>
+        </div>
+        <hr>
+        <div class="row ms-auto Profile-content">
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <h6>Name:</h6>
                 </div>
-            </a>
-            <a href="/account/tickets" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-ticket fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Tickets</span>
+                <div class="col-lg-5 col-md-5">
+                    {{ current_user.name }}
                 </div>
-            </a>
-            <a href="/account/favourites" class="bg-light list-group-item list-group-item-action menu-item">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-star fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Favourites</span>
+                <div class="col-lg-2 col-md-2">
+                    <i class="fa-solid fa-pen-to-square icon"></i>
                 </div>
-            </a>
-            <a href="/account/profile" class="bg-light list-group-item list-group-item-action menu-item active">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Profile</span>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <h6>Email:</h6>
                 </div>
-            </a>
-    </div> 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="row">
-            <h2>Account Information</h2>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-5">
-                <h6>Name:</h6>
+                <div class="col-lg-5 col-md-5">
+                    {{ current_user.emailid }}
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <i class="fa-solid fa-pen-to-square icon"></i>
+                </div>
             </div>
-            <div class="col-md-5">
-                {{ current_user.name }}
+            <hr>
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <h6>Address:</h6>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    {{ current_user.address }}
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <i class="fa-solid fa-pen-to-square icon"></i>
+                </div>
             </div>
-            <div class="col-md-2">
-                <i class="fa-solid fa-pen-to-square icon"></i>
+            <hr>
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <h6>Phone:</h6>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    {{ current_user.phone }}
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <i class="fa-solid fa-pen-to-square icon"></i>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-5">
-                <h6>Email:</h6>
-            </div>
-            <div class="col-md-5">
-                {{ current_user.emailid }}
-            </div>
-            <div class="col-md-2">
-                <i class="fa-solid fa-pen-to-square icon"></i>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-5">
-                <h6>Address:</h6>
-            </div>
-            <div class="col-md-5">
-                {{ current_user.address }}
-            </div>
-            <div class="col-md-2">
-                <i class="fa-solid fa-pen-to-square icon"></i>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-5">
-                <h6>Phone:</h6>
-            </div>
-            <div class="col-md-5">
-                {{ current_user.phone }}
-            </div>
-            <div class="col-md-2">
-                <i class="fa-solid fa-pen-to-square icon"></i>
+            <hr>
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <h6>Password:</h6>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    ***********
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <i class="fa-solid fa-pen-to-square icon"></i>
+                </div>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-5">
-                <h6>Password:</h6>
-            </div>
-            <div class="col-md-5">
-                ***********
-            </div>
-            <div class="col-md-2">
-                <i class="fa-solid fa-pen-to-square icon"></i>
-            </div>
-        </div>
-      </main>
+    </main>
 
 {% endblock %}
