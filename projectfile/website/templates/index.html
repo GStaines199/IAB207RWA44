@@ -82,8 +82,9 @@
                 <a class="btn btn-primary" href="{{ url_for('event.show', id=event.eventid) }}" role="button">View</a>
             </div>
             <div class="row justify-content-center my-1">
-                <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button"
-                    onclick="window.location.href='bookmarks.html'">Favourite</button>
+                <form method="POST" action="{{ url_for('auth.toggle_favorite', id=event.eventid) }}">
+                        <button type="submit" class="btn btn-success text-nowrap mx-2 btn-block" role="button">Favorited</button>
+                </form>
             </div>
         </div>
     </div>

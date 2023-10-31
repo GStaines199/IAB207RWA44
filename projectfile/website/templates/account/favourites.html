@@ -38,8 +38,49 @@
     </div> 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="row">
-            <h2>Favourites</h2>
+            <h2>My Events</h2>
         </div>
+        {% for favorite_events in favorite_events %}
+        <div class="row px-5 py-1">
+            <div class="col-2">
+                <img src="../../{{ favorite_events.image }}" class="img-fluid">
+            </div>
+
+            <div class="col-8">
+                <h1>{{favorite_events.name}}</h1>
+                <div class="row">
+                    <div class="col-2">
+                        <p>Status: {{favorite_events.status}}</p>
+                        <p>Location: {{favorite_events.location}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Start: {{favorite_events.startdate}}</p>
+                        <p>End: {{favorite_events.enddate}}</p>
+                    </div>
+                </div>
+                <p>
+                    {{favorite_events.description}}
+                </p>
+            </div>
+            <div class="col-2 justify-content-center">
+                <div class="row justify-content-center my-1">
+                    <p><small>TICKET PRICE</small></p>
+                </div>
+                <div class="row justify-content-center my-1">
+                    <h2>${{favorite_events.ticketPrice}}</h2>
+                </div>
+                <div class="row justify-content-center my-1">
+                    <a class="btn btn-primary" href="{{ url_for('event.show', id=favorite_events.eventid) }}" role="button">View</a>
+                </div>
+                <div class="row justify-content-center my-1">
+                    <form method="POST" action="{{ url_for('auth.toggle_favorite', id=favorite_events.eventid) }}">
+                        <button type="submit" class="btn btn-success text-nowrap mx-2 btn-block" role="button">Remove Favourite</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
       </main>
 
 {% endblock %}

@@ -36,7 +36,9 @@
                         {% endif %}
                     </div>
                     <div class="row my-1">
-                        <button class="btn btn-secondary text-nowrap mx-2 btn-block" type="button" onclick="window.location.href='bookmarks.html'">Favourite</button>
+                        <form method="POST" action="{{ url_for('auth.toggle_favorite', id=Event.eventid) }}">
+                            <button type="submit" class="btn btn-secondary text-nowrap mx-2 btn-block" role="button">Favourite</button>
+                        </form>
                     </div>
                 </div>
             </div>

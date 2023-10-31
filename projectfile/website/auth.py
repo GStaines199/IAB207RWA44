@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from .forms import LoginForm, RegisterForm
 #new imports:
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_bcrypt import generate_password_hash, check_password_hash
-from .models import User, Event
+from .models import User, Event, Favourites, Tickets
 from . import db
 
 #create a blueprint
@@ -70,7 +70,6 @@ def logout():
 @authbp.route('/account/profile')
 @login_required
 def account():
-    
     return render_template('account/profile.html', heading='Account')
 
 @authbp.route('/account/myevents')
@@ -83,9 +82,36 @@ def myevents():
 @authbp.route('/account/tickets')
 @login_required
 def tickets():
+
     return render_template('account/tickets.html', heading='Tickets')
 
 @authbp.route('/account/favourites')
 @login_required
 def favourites():
-    return render_template('account/favourites.html', heading='Favourites')
+    user_id = current_user.id
+
+    user_favorites = Favourites.query.filter_by(user_id=user_id).all()
+
+    event_ids = [fav.event_id for fav in user_favorites]
+
+    favorite_events = Event.query.filter(Event.eventid.in_(event_ids)).all()
+
+    return render_template('account/favourites.html',favorite_events=favorite_events, heading='Favourites')
+
+@authbp.route('/toggle_favorite/<int:id>', methods=['GET', 'POST'])
+@login_required
+def toggle_favorite(id):
+    # Check if the event is already in favorites
+    event = db.session.scalar(db.select(Event).where(Event.eventid==id))
+    favorite = Favourites.query.filter_by(user_id=current_user.id, event_id=id).first()
+    fragment = request.referrer.split('#', 1)[-1]
+    if favorite:
+        # Event is already in favorites, remove it
+        db.session.delete(favorite)
+    else:
+        # Event is not in favorites, add it
+        new_favorite = Favourites(user_id=current_user.id, event_id=id)
+        db.session.add(new_favorite)
+
+    db.session.commit()
+    return redirect(f"{request.referrer}#{fragment}")

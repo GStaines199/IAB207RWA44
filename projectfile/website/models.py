@@ -44,3 +44,25 @@ class Comment(db.Model):
     # add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.eventid'), nullable=False)
+
+
+class Tickets(db.Model):
+    __tablename__ = 'tickets'
+    ticketid = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.eventid'), nullable=False)
+    FirstName = db.Column(db.String(80))
+    LastName = db.Column(db.String(80))
+    NumTickets = db.Column(db.Integer)
+    TotalPrice = db.Column(db.String(3))
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    date = db.Column(db.DateTime)
+
+
+class Favourites(db.Model):
+    __tablename__ = 'favourites'
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.eventid'), nullable=False, primary_key=True)
+
+    
