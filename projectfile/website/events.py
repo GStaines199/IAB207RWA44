@@ -66,7 +66,7 @@ def update_event(id):
     event.user = current_user.name
 
     # Commit the changes to the database
-    event.session.commit()
+    db.session.commit()
 
   return render_template('events/update.html', form=form)
 def check_upload_file(form):
