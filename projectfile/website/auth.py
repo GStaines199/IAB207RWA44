@@ -115,3 +115,12 @@ def toggle_favorite(id):
 
     db.session.commit()
     return redirect(f"{request.referrer}#{fragment}")
+
+@authbp.route('/accounts/delete/<int:id>')
+def delete_event(id):
+    event = Event.query.get_or_404(id)
+    db.session.delete(event)
+    db.session.commit()
+    user = current_user.name
+    userevents = Event.query.filter_by(user=user).all()
+    return render_template('account/myevents.html', UserEvent=userevents, heading='MyEvents')
