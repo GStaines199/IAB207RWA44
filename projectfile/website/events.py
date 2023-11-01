@@ -94,7 +94,7 @@ def comment():
     return redirect(url_for('event.show', id=1))
 
 
-@eventbp.route('/<id>/purchase', methods=['GET', 'POST'])
+@eventbp.route('purchase/<id>', methods=['GET', 'POST'])
 @login_required
 def ticket(id):
   print('Method type: ', request.method)
@@ -102,20 +102,28 @@ def ticket(id):
   if form.validate_on_submit():
 
     current_dateTime = datetime.now()
-    date = datetime.strptime(current_dateTime, '%Y-%m-%d %H:%M')
+    date = current_dateTime
     ticketFname = form.FirstName.data
     ticketLname = form.LastName.data
-    ticketNum = form.NumTickets.data
-    ticketPrice = 3
+    ticketNum = form.quantity.data
+    ticketPrice = db.session.scalar(db.select(Event.ticketPrice).where(Event.eventid==id))
     TotalPrice = ticketNum * ticketPrice
     userid = current_user.id
     eventid = id    
     ticket = Tickets()
-    addticket = Tickets(FirstName=ticketFname,LastName=ticketLname,NumTickets=ticketNum,TotalPrice=TotalPrice,userid=userid,eventid=eventid,date=date)
+    addticket = Tickets(FirstName=ticketFname,LastName=ticketLname,NumTickets=ticketNum,TotalPrice=TotalPrice,user_id=userid,event_id=eventid,date=date)
     # add the object to the db session
     db.session.add(addticket)
     # commit to the database
     db.session.commit()
     #Always end with redirect when form is valid
-    return redirect(url_for('main.index'))
+    Receptid = db.session.scalar(db.select(Tickets.ticketid).where(Tickets.FirstName==ticketFname))
+    return redirect(url_for('recept.html'))
   return render_template('events/ticket.html', form=form)
+
+@eventbp.route('recept/<id>', methods=['GET', 'POST'])
+@login_required
+def Recept(id):
+  print('Method type: ', request.method)
+  
+  return render_template('events/recept.html', form=form)

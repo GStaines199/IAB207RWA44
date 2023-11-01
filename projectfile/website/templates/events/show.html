@@ -26,13 +26,13 @@
                 <div class="col-1">
                     <div class="row my-1">
                         {% if Event.status =='Active' %}
-                            <button class="btn btn-primary text-nowrap mx-2 btn-block" type="button" href="/{{Event.eventid}}/purchase">Purchase</button>
+                            <a class="btn btn-primary text-nowrap mx-2 btn-block" type="button" href="{{ url_for('event.ticket', id=Event.eventid) }}">Purchase</a>
                         {% elif Event.status =='Limited' %}
-                            <button class="btn btn-Success text-nowrap mx-2 btn-block" type="button" href="{{ url_for('event.ticket', id=event.eventid) }}">Purchase</button>
+                            <button class="btn btn-Success text-nowrap mx-2 btn-block" type="button" href="{{ url_for('event.ticket', id=Event.eventid) }}">Purchase</button>
                         {% elif Event.status =='Sold Out' %}
-                        <button class="btn btn-Danger text-nowrap mx-2 btn-block" type="button" disabled>Sold Out</button>
+                            <button class="btn btn-Danger text-nowrap mx-2 btn-block" type="button" disabled>Sold Out</button>
                         {% elif Event.status =='Canceled' %}
-                        <button class="btn btn-info text-nowrap mx-2 btn-block" type="button"  disabled>Canceled</button>
+                            <button class="btn btn-info text-nowrap mx-2 btn-block" type="button"  disabled>Canceled</button>
                         {% endif %}
                     </div>
                     <div class="row my-1">
