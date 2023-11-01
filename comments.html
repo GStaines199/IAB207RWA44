@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Comments</title>
+</head>
+<body>
+    <h1>Events</h1>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.name }}</li>
+            <form method="POST" action="/post_comment">
+                <input type="hidden" name="event_id" value="{{ event.id }}">
+                <input type="text" name="commenter_name" placeholder="Your Name" required>
+                <input type="text" name="comment_text" placeholder="Your Comment" required>
+                <button type="submit">Post Comment</button>
+            </form>
+            <h2>Comments</h2>
+            <ul>
+                {% for comment in comments %}
+                    {% if comment.event_id == event.id %}
+                        <li>
+                            {{ comment.commenter_name }} said "{{ comment.comment_text }}" on {{ comment.timestamp }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser</title>
+</head>
+<body>
+    <h1>Events</h1>
+    
+    <!-- dropdown for selecting category -->
+    <form method="get">
+        <label for="category">Select a Category:</label>
+        <select id="category" name="category">
+            <option value="">All</option>
+            {% for category in categories %}
+                <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+    
+    <h2>Events</h2>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.name }} - {{ event.category }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
