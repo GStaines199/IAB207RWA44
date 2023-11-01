@@ -92,8 +92,8 @@ def account():
 @authbp.route('/account/myevents')
 @login_required
 def myevents():
-    user = current_user.name
-    userevents = Event.query.filter_by(user=user).all()
+    user_id = current_user.id
+    userevents = Event.query.filter_by(userid=user_id).all()
     return render_template('account/myevents.html', UserEvent=userevents, heading='MyEvents')
 
 @authbp.route('/account/tickets')

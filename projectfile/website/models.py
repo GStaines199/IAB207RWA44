@@ -32,7 +32,7 @@ class Event(db.Model):
     Theme = db.Column(db.String(80))
     SkillLevel = db.Column(db.String(80))
     location = db.Column(db.String(100))
-    user = db.Column(db.String(80))
+    userid = db.Column(db.String(80))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='event')
