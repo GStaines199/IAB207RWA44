@@ -141,6 +141,7 @@ def delete_event(id):
     event = Event.query.get_or_404(id)
     db.session.delete(event)
     db.session.commit()
-    user = current_user.name
-    userevents = Event.query.filter_by(user=user).all()
+    userid = current_user.id
+    userevents = Event.query.filter_by(userid=userid).all()
+    redirect(url_for('auth.myevents'))
     return render_template('account/myevents.html', UserEvent=userevents, heading='MyEvents')
