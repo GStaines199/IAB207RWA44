@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .forms import EventForm, CommentForm, EventUpdateForm
-from .models import Event, Comment
+from .forms import EventForm, CommentForm, EventUpdateForm, TicketForm
+from .models import Event, Comment, Tickets
 from datetime import datetime
 from . import db
 from werkzeug.utils import secure_filename
@@ -42,8 +42,9 @@ def create():
     return redirect(url_for('main.index'))
   return render_template('events/create.html', form=form)
 
-@login_required
+
 @eventbp.route('/update/<id>', methods=['GET', 'POST'])
+@login_required
 def update_event(id):
   # Get the event
   event = db.session.query(Event).get(id)
@@ -84,7 +85,6 @@ def check_upload_file(form):
   return db_upload_path
 
 
-
 @eventbp.route('/<id>/comment', methods = ['GET','POST'])
 def comment():
     print('method type: ', request.method) 
@@ -92,3 +92,30 @@ def comment():
     if form.validate_on_submit():
         print(f"The following comment has been posted: {form.text.data}")
     return redirect(url_for('event.show', id=1))
+
+
+@eventbp.route('/<id>/purchase', methods=['GET', 'POST'])
+@login_required
+def ticket(id):
+  print('Method type: ', request.method)
+  form = TicketForm()
+  if form.validate_on_submit():
+
+    current_dateTime = datetime.now()
+    date = datetime.strptime(current_dateTime, '%Y-%m-%d %H:%M')
+    ticketFname = form.FirstName.data
+    ticketLname = form.LastName.data
+    ticketNum = form.NumTickets.data
+    ticketPrice = 3
+    TotalPrice = ticketNum * ticketPrice
+    userid = current_user.id
+    eventid = id    
+    ticket = Tickets()
+    addticket = Tickets(FirstName=ticketFname,LastName=ticketLname,NumTickets=ticketNum,TotalPrice=TotalPrice,userid=userid,eventid=eventid,date=date)
+    # add the object to the db session
+    db.session.add(addticket)
+    # commit to the database
+    db.session.commit()
+    #Always end with redirect when form is valid
+    return redirect(url_for('main.index'))
+  return render_template('events/ticket.html', form=form)
