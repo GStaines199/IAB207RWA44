@@ -110,20 +110,24 @@ def ticket(id):
     TotalPrice = ticketNum * ticketPrice
     userid = current_user.id
     eventid = id    
-    ticket = Tickets()
-    addticket = Tickets(FirstName=ticketFname,LastName=ticketLname,NumTickets=ticketNum,TotalPrice=TotalPrice,user_id=userid,event_id=eventid,date=date)
-    # add the object to the db session
-    db.session.add(addticket)
-    # commit to the database
-    db.session.commit()
-    #Always end with redirect when form is valid
-    Receptid = db.session.scalar(db.select(Tickets.ticketid).where(Tickets.FirstName==ticketFname))
-    return redirect(url_for('recept.html'))
+
+    existing_ticket = db.session.query(Tickets).filter_by(user_id=userid, event_id=eventid).first()
+    if existing_ticket:
+      flash('You already purchased a ticket for this event.')
+    else:
+      addticket = Tickets(FirstName=ticketFname, LastName=ticketLname, NumTickets=ticketNum, TotalPrice=TotalPrice, user_id=userid, event_id=eventid, date=date)
+      # add the object to the db session
+      db.session.add(addticket)
+      # commit to the database
+      db.session.commit()
+      # Get the ticketid of the newly added ticket
+      Receptid = db.session.scalar(db.select(Tickets.ticketid).where(Tickets.user_id==userid, Tickets.event_id==eventid))
+      return redirect(url_for('event.Recept', id=Receptid))
   return render_template('events/ticket.html', form=form)
 
 @eventbp.route('recept/<id>', methods=['GET', 'POST'])
 @login_required
 def Recept(id):
   print('Method type: ', request.method)
-  
-  return render_template('events/recept.html', form=form)
+  recept = db.session.scalar(db.select(Tickets).where(Tickets.ticketid==id))
+  return render_template('events/recept.html', Recept=recept)
