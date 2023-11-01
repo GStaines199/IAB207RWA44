@@ -6,11 +6,11 @@ from dateutil.easter import *
 from dateutil.rrule import *
 from dateutil.parser import *
 from datetime import *
+from flask_login import current_user
 from wtforms.validators import InputRequired, Email, EqualTo, Length
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
-
 #creates the login information
 class LoginForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired('Enter user name')], render_kw={"placeholder": "Enter user name"})
@@ -64,3 +64,10 @@ class EventUpdateForm(FlaskForm):
 class CommentForm(FlaskForm):
     text = TextAreaField('Text', validators=[InputRequired()])
     submit = SubmitField("Create")
+
+class EditProfileForm(FlaskForm):
+    name = StringField('Name', render_kw={"placeholder": current_user.name if current_user and current_user.name else ''})
+    email = StringField('Email', render_kw={"placeholder": current_user.email if current_user and current_user.email else ''})
+    address = StringField('Address', render_kw={"placeholder": current_user.address if current_user and current_user.address else ''})
+    phone = StringField('Phone', render_kw={"placeholder": current_user.phone if current_user and current_user.phone else ''})
+    submit = SubmitField('Save Changes')
