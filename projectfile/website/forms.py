@@ -41,7 +41,7 @@ class EventForm(FlaskForm):
     price = IntegerField('Price ($)',  validators=[InputRequired()])
     theme = StringField('Event Theme', validators=[InputRequired()])
     Dietry = StringField('Dietry', validators=[InputRequired()])
-    SkillLevel = SelectField('Skill Level', validators=[InputRequired()], choices=[('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Expert', 'Expert'), ('Foody', 'Foody'), ('Chef', 'Chef'), ('Family Friendly', 'Family Friendly')])
+    SkillLevel = SelectField('Skill Level', validators=[InputRequired()], choices=[('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Expert', 'Expert'), ('Foodie', 'Foodie'), ('Chef', 'Chef'), ('Family Friendly', 'Family Friendly')])
     startdate = StringField('Start Date & Time', validators=[InputRequired()], widget=widgets.Input(input_type='datetime-local'))
     enddate = StringField('End Date & Time', validators=[InputRequired()],widget=widgets.Input(input_type='datetime-local'))
     location = StringField('Location', validators=[InputRequired()])
@@ -77,3 +77,4 @@ class TicketForm(FlaskForm):
     LastName = StringField('Last Name', validators=[InputRequired()])
     quantity = IntegerField('Quantity', validators=[InputRequired()])
     submit = SubmitField('Buy Tickets')
+
