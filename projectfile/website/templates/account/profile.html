@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/account.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/account.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -12,66 +13,64 @@
         </div>
         <hr>
         <div class="row ms-auto Profile-content">
-            <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <h6>Name:</h6>
+            {% set fields = ['name', 'email', 'address', 'phone'] %}
+            {% for field in fields %}
+                <div class="row" id="{{ field }}">
+                    <div class="col-lg-5 col-md-4">
+                        <h6>{{ field.capitalize() }}:</h6>
+                    </div>
+                    <div class="col-lg-5 col-md-5" id="{{ field }}-details">
+                        {{ current_user[field] }}
+                    </div>
+                    <div class="col-lg-2 col-md-2" id="{{ field }}-icon">
+                        <i class="fa-solid fa-pen-to-square icon" onclick="toggleForm('{{ field }}')"></i>
+                    </div>
                 </div>
-                <div class="col-lg-5 col-md-5">
-                    {{ current_user.name }}
+                <div class="row" id="{{ field }}-form" style="display: none;">
+                    <form method="post" action="{{ url_for('auth.account') }}">
+                        <div class="col-lg-5 col-md-4">
+                        </div>
+                        <div class="col-lg-5 col-md-5" id="{{ field }}-details">
+                            {{ form.hidden_tag() }}
+                            {{ form[field] }}
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+                            <button type="submit">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-lg-2 col-md-2">
-                    <i class="fa-solid fa-pen-to-square icon"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <h6>Email:</h6>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    {{ current_user.emailid }}
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <i class="fa-solid fa-pen-to-square icon"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <h6>Address:</h6>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    {{ current_user.address }}
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <i class="fa-solid fa-pen-to-square icon"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <h6>Phone:</h6>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    {{ current_user.phone }}
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <i class="fa-solid fa-pen-to-square icon"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <h6>Password:</h6>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    ***********
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <i class="fa-solid fa-pen-to-square icon"></i>
-                </div>
-            </div>
+                <hr>
+            {% endfor %}
         </div>
     </main>
 
+    <script>
+        function toggleForm(field) {
+            var details = document.getElementById(field + '-details');
+            var form = document.getElementById(field + '-form');
+            var icon = document.getElementById(field + '-icon');
+
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                details.style.display = 'none';
+                icon.style.display = 'none';
+            } else {
+                form.style.display = 'none';
+                details.style.display = 'block';
+                icon.style.display = 'block';
+            }
+        }
+    </script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

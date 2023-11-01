@@ -9,6 +9,36 @@
         <div class="row">
             <h2>Tickets</h2>
         </div>
+        {% for ticket_events in ticket_events %}
+            <div class="row py-1 event_bar">
+                <div class="col-2">
+                    <img src="../../{{ ticket_events.image }}" class="img-fluid">
+                </div>
+                <div class="col-8">
+                    <h1>{{ticket_events.name}}  {{user_tickets.ticketid}}</h1>
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="font-weight-bold date">{{ ticket_events.startdate.strftime('%a, %d %b, %I:%M%p') }} - {{ticket_events.enddate.strftime('%a, %d %b, %I:%M%p')}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="font-weight-bold status">Status: {{ticket_events.status}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-weight-bold">{{ticket_events.location}}</p>
+                        <p>{{ticket_events.description}}</p>
+                    </div>
+                </div>
+                <div class="col-2 justify-content-center">
+                    <div class="row justify-content-center my-1">
+                        <p><small>TICKET PRICE</small></p>
+                    </div>
+                    <div class="row justify-content-center my-1">
+                        <h2>${{ticket_events.ticketPrice}}</h2>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
       </main>
 
 {% endblock %}

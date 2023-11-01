@@ -6,7 +6,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users' # good practice to specify table name
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
+    email = db.Column(db.String(100), index=True, nullable=False)
     phone = db.Column(db.String(100), index=True, nullable=False)
     address = db.Column(db.String(100), index=True, nullable=False)
 	#password is never stored in the DB, an encrypted password is stored
@@ -23,7 +23,7 @@ class Event(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
-    ticketPrice = db.Column(db.String(3))
+    ticketPrice = db.Column(db.Integer)
     status = db.Column(db.String(20))
     created_at = db.Column(db.DateTime, default=datetime.now())
     startdate = db.Column(db.DateTime)
@@ -32,7 +32,7 @@ class Event(db.Model):
     Theme = db.Column(db.String(80))
     SkillLevel = db.Column(db.String(80))
     location = db.Column(db.String(100))
-    user = db.Column(db.String(80))
+    userid = db.Column(db.String(80))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='event')
@@ -57,7 +57,7 @@ class Tickets(db.Model):
     FirstName = db.Column(db.String(80))
     LastName = db.Column(db.String(80))
     NumTickets = db.Column(db.Integer)
-    TotalPrice = db.Column(db.String(3))
+    TotalPrice = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.now())
     date = db.Column(db.DateTime)
 

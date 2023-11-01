@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, EditProfileForm
 #new imports:
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User, Event, Favourites, Tickets
 from . import db
+from sqlalchemy import update
 
 #create a blueprint
 authbp = Blueprint('auth', __name__ )
@@ -17,7 +18,7 @@ def register():
             #get username, password and email from the form
             uname = register.user_name.data
             pwd = register.password.data
-            email = register.email_id.data
+            email = register.email.data
             address = register.Address.data
             phone = register.Phone_Number.data
             #check if a user exists
@@ -28,7 +29,7 @@ def register():
             # don't store the password in plaintext!
             pwd_hash = generate_password_hash(pwd)
             #create a new User model object
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email, phone=phone, address=address)
+            new_user = User(name=uname, password_hash=pwd_hash, email=email, phone=phone, address=address)
             db.session.add(new_user)
             db.session.commit()
             #commit to the database and redirect to HTML page
@@ -67,24 +68,43 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@authbp.route('/account/profile')
+@authbp.route('/account/profile', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account/profile.html', heading='Account')
+    form = EditProfileForm()
+
+    if (form.validate_on_submit()==True):
+        # Update user details in the database
+        name = form.name.data if form.name.data is not None else current_user.name
+        email = form.email.data if form.email.data is not None else current_user.email
+        address = form.address.data if form.address.data is not None else current_user.address
+        phone = form.phone.data if form.phone.data is not None else current_user.phone
+        # Assuming you have a database session and commit changes
+        updateUser = update(User).where(User.id==current_user.id).values(name=name, email=email, address=address, phone=phone)
+        db.session.execute(updateUser)
+        db.session.commit()
+
+        # Redirect to the profile page after saving changes
+        return redirect(url_for('auth.account'))
+
+    return render_template('account/profile.html', form=form, current_user=current_user)
 
 @authbp.route('/account/myevents')
 @login_required
 def myevents():
-    user = current_user.name
-    userevents = Event.query.filter_by(user=user).all()
+    user_id = current_user.id
+    userevents = Event.query.filter_by(userid=user_id).all()
     return render_template('account/myevents.html', UserEvent=userevents, heading='MyEvents')
 
 @authbp.route('/account/tickets')
 @login_required
 def tickets():
-
-    return render_template('account/tickets.html', heading='Tickets')
-
+    user_id = current_user.id
+    user_tickets = Tickets.query.filter_by(user_id=user_id).all()
+    event_ids = [ticket.event_id for ticket in user_tickets]
+    ticket_events = Event.query.filter(Event.eventid.in_(event_ids)).all()
+    return render_template('account/tickets.html', heading='Tickets', ticket_events=ticket_events, user_tickets=user_tickets)
+    
 @authbp.route('/account/favourites')
 @login_required
 def favourites():
