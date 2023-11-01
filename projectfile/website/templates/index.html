@@ -13,39 +13,47 @@
 
     <div class="row px-5 py-1">
         <div class="col">
-            <select class="form-control p" id="selectDietary">
-                <option selected>Dietary Preference</option>
-                <option>Vegan</option>
-                <option>Gluten-Free</option>
-                <option>Kosher</option>
-                <option>Halal</option>
-                <option>Vegetarian</option>
-                <option>Low Carb</option>
-                <option>Keto Friendly</option>
-                <option>Paleo</option>
-            </select>
+            <div class="col">
+                <form method="GET" action="{{ url_for('main.index') }}" id="filterdietForm">
+                    <select class="form-control p" name="dietary" onchange="submitdietForm()">
+                        <option selected>Dietary Preference</option>
+                        <option>Vegan</option>
+                        <option>Gluten-Free</option>
+                        <option>Kosher</option>
+                        <option>Halal</option>
+                        <option>Vegetarian</option>
+                        <option>Low Carb</option>
+                        <option>Keto Friendly</option>
+                        <option>Paleo</option>
+                    </select>
+                </form>
+            </div>
         </div>
         <div class="col">
-            <select class="form-control" id="selectSeasonal">
-                <option selected>Seasonal / Cultural Options</option>
-                <option>Spring Flavours</option>
-                <option>Summer BBQ</option>
-                <option>Autumn Harvest</option>
-                <option>Winter Comforts</option>
-                <option>Cultural</option>
-                <option>Holidays</option>
-            </select>
+            <form method="GET" action="{{ url_for('main.index') }}" id="filterthemeForm">
+                <select class="form-control p" name="theme" onchange="submitthemeForm()">
+                    <option selected>Seasonal / Cultural Options</option>
+                    <option>Spring Flavours</option>
+                    <option>Summer BBQ</option>
+                    <option>Autumn Harvest</option>
+                    <option>Winter Comforts</option>
+                    <option>Cultural</option>
+                    <option>Holidays</option>
+                </select>
+            </form>
         </div>
         <div class="col">
-            <select class="form-control" id="selectSkillLevel">
-                <option selected>Skill Level Filter</option>
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Expert</option>
-                <option>Foodie</option>
-                <option>Chef</option>
-                <option>Family Friendly</option>
-            </select>
+            <form method="GET" action="{{ url_for('main.index') }}" id="filterSLForm">
+                <select class="form-control p" name="skill_level" onchange="submitSLForm()">
+                    <option selected>Skill Level Filter</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Expert</option>
+                    <option>Foodie</option>
+                    <option>Chef</option>
+                    <option>Family Friendly</option>
+                </select>
+            </form>
         </div>
     </div>
 
@@ -54,7 +62,7 @@
     <div class="px-5 py-1 justify-content-center">
         <div class="row event_bar">
             <div class="col-2">
-                <img src="{{ event.image }}" class="img-fluid">
+                <img src="{{ event.image }}" class="img-fluid" style="height: 200px; width: 300px; object-fit: cover;">
             </div>
             <div class="col-8">
                 <h1>{{event.name}}</h1>

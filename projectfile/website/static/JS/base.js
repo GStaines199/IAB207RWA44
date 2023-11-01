@@ -20,5 +20,15 @@ const icons = document.querySelectorAll('.icon');
   });       
   
 
+  function submitdietForm() {
+    document.getElementById("filterdietForm").submit();
+}
 
+function submitthemeForm() {
+  document.getElementById("filterthemeForm").submit();
+}
+
+function submitSLForm() {
+  document.getElementById("filterSLForm").submit();
+}
   
