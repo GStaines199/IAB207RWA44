@@ -23,7 +23,7 @@ class Event(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
-    ticketPrice = db.Column(db.String(3))
+    ticketPrice = db.Column(db.Integer)
     status = db.Column(db.String(20))
     created_at = db.Column(db.DateTime, default=datetime.now())
     startdate = db.Column(db.DateTime)
@@ -57,7 +57,7 @@ class Tickets(db.Model):
     FirstName = db.Column(db.String(80))
     LastName = db.Column(db.String(80))
     NumTickets = db.Column(db.Integer)
-    TotalPrice = db.Column(db.String(3))
+    TotalPrice = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.now())
     date = db.Column(db.DateTime)
 

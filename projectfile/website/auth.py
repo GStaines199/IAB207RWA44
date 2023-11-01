@@ -99,9 +99,12 @@ def myevents():
 @authbp.route('/account/tickets')
 @login_required
 def tickets():
-
-    return render_template('account/tickets.html', heading='Tickets')
-
+    user_id = current_user.id
+    user_tickets = Tickets.query.filter_by(user_id=user_id).all()
+    event_ids = [ticket.event_id for ticket in user_tickets]
+    ticket_events = Event.query.filter(Event.eventid.in_(event_ids)).all()
+    return render_template('account/tickets.html', heading='Tickets', ticket_events=ticket_events, user_tickets=user_tickets)
+    
 @authbp.route('/account/favourites')
 @login_required
 def favourites():

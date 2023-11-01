@@ -71,3 +71,9 @@ class EditProfileForm(FlaskForm):
     address = StringField('Address', render_kw={"placeholder": current_user.address if current_user and current_user.address else ''})
     phone = StringField('Phone', render_kw={"placeholder": current_user.phone if current_user and current_user.phone else ''})
     submit = SubmitField('Save Changes')
+
+class TicketForm(FlaskForm):
+    FirstName = StringField('First Name', validators=[InputRequired()])
+    LastName = StringField('Last Name', validators=[InputRequired()])
+    quantity = IntegerField('Quantity', validators=[InputRequired()])
+    submit = SubmitField('Buy Tickets')
